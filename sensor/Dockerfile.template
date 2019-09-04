@@ -1,10 +1,11 @@
 
-FROM balenalib/%%BALENA_MACHINE_NAME%%-python:3.7-buster-build
+FROM balenalib/%%BALENA_MACHINE_NAME%%-python:3.7-buster-run
 
 # RUN install_packages git
 
 RUN pip3 install --upgrade \
-	pymongo
+	pymongo \
+	pprint 
 
 # Set our working directory
 WORKDIR /usr/src/app

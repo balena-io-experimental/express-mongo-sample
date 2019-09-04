@@ -1,9 +1,17 @@
-from flask import Flask
-app = Flask(__name__)
+import time
+from pymongo import MongoClient
+from pprint import pprint
 
-@app.route('/')
-def hello_world():
-    return 'Hello World!'
+client = MongoClient('mongodb://localhost:27017/sensorData')
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80)
+with client:
+    db = client.sensorData
+
+    while True:
+        print("Hi!")
+        print(db.list_database_names())
+
+        status = db.command("serverStatus")
+        pprint(status)
+
+        time.sleep(2)

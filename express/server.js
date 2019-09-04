@@ -6,10 +6,10 @@ const MongoClient = require("mongodb").MongoClient;
 var db;
 
 MongoClient.connect(
-  `mongodb://localhost:27017/star-wars-quotes`,
+  `mongodb://localhost:27017/sensor-data`,
   (err, database) => {
     if (err) return console.log(err);
-    db = database.db("star-wars-quotes");
+    db = database.db("sensor-data");
     app.listen(process.env.PORT || 80, () => {
       console.log("listening on 80");
     });
