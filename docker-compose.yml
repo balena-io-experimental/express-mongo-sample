@@ -1,0 +1,22 @@
+version: "2"
+services:
+  mongo:
+    build: ./mongo
+    restart: always
+    privileged: true
+    network_mode: "host"
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+  express:
+    depends_on:
+      - mongo
+    build: ./express
+    network_mode: "host"
+    ports:
+      - "3000:3000"
+    environment:
+      MD_USER: root
+      MD_PASS: example
