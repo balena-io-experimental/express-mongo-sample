@@ -6,7 +6,7 @@ const MongoClient = require("mongodb").MongoClient;
 var db;
 
 MongoClient.connect(
-  `mongodb://${process.env.MD_USER}:${process.env.MD_PASS}@localhost:27017/star-wars-quotes`,
+  `mongodb://localhost:27017/star-wars-quotes`,
   (err, database) => {
     if (err) return console.log(err);
     db = database.db("star-wars-quotes");
