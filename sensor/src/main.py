@@ -33,4 +33,5 @@ with client:
 
         print("Data inserted...")
 
-        time.sleep(10)
+        # Update database every minute
+        time.sleep(60)

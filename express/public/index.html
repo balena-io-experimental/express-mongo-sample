@@ -4,20 +4,23 @@
     <meta charset="UTF-8" />
     <title>balena + mongoDB</title>
     <link rel="stylesheet" href="styles.css" />
-    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
   <body>
-    <header>balena + mongoDB</header>
-    <section>
-      <div id="app">
-        <line-chart :options="options" :chart-data="datacollection"/>
-      </div>
-    </section>
-    <footer></footer>
-    
+    <div class="container">
+
+      <h1 class="mt-5 text-center">balena + mongoDB + expressJS</h1><
+      <section>
+        <div id="app">
+          <line-chart :options="options" :chart-data="datacollection"/>
+        </div>
+      </section>
+
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.min.js"></script>
     <script src="https://unpkg.com/vue-chartjs@2.8.7/dist/vue-chartjs.full.min.js"></script>
     <script src="main.js"></script>
+
   </body>
 </html>
