@@ -33,17 +33,47 @@ var vm = new Vue({
               },
               display: true
             }
-          ]
+          ],
+          yAxes: [{
+            id: 'Temperature',
+            labelString: 'Temperature',
+            type: 'linear',
+            position: 'left',
+            ticks: {
+              max: 50,
+              min: 0,
+              callback: function(value, index, values) {
+                return value + 'C';
+              }
+            }
+          }, {
+            id: 'Humidity',
+            labelString: 'Humidity',
+            type: 'linear',
+            position: 'right',
+            ticks: {
+              max: 100,
+              min: 0,
+              callback: function(value, index, values) {
+                return value + '%';
+              }
+            }
+          }]
         }
       },
-      datacollection: {}
+      datacollection: {},
+      cityName: "",
+      cityLat: "",
+      cityLong: "",
+      currentTime: ""
     };
   },
   created() {
     this.loadData();
   },
   methods: {
-    loadData: function() {
+    loadData () {
+      console.log("Updating content");
       fetch("/data")
         .then(res => {
           return res.json();
@@ -53,10 +83,18 @@ var vm = new Vue({
 
           let labels = [];
           let tempData = [];
+          let humidData = [];
 
           data.map(point => {
             labels.push(point.time);
             tempData.push((point.weather.main.temp-273.15).toFixed(2)); // Converting temperatue from Kelvin to Celcius
+            humidData.push((point.weather.main.humidity).toFixed(2)); 
+
+            this.cityName = point.weather.name;
+            this.cityLat = point.weather.coord.lat;
+            this.cityLong = point.weather.coord.lon;
+            this.currentTime = point.time;
+
           });
 
           this.datacollection = {
@@ -64,10 +102,24 @@ var vm = new Vue({
             datasets: [
               {
                 label: "Temperature",
+                yAxisID: "Temperature",
                 backgroundColor: "#f87979",
                 data: tempData,
                 fill: false
-              }
+              },
+              {
+                label: "Humidity",
+                yAxisID: "Humidity",
+                backgroundColor: "#348ceb",
+                data: humidData,
+                fill: false
+              }//,
+              // {
+              //   label: "Pressure",
+              //   backgroundColor: "#4fc261",
+              //   data: pressData,
+              //   fill: false
+              // }
             ]
           };
         });

@@ -6,17 +6,32 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
-  <body>
+  <body class="d-flex flex-column h-100">
+    <main role="main" class="flex-shrink-0">
     <div class="container">
-
-      <h1 class="mt-5 text-center">balena + mongoDB + expressJS</h1><
+      <img src="header.png" style="max-width: 100%;">
       <section>
         <div id="app">
+          <p> 
+              <b>City:</b> {{ cityName }} <br>
+              <b>Lat:</b> {{ cityLat }} <b>Long:</b> {{ cityLong }} <br>
+              <b>Time:</b>  {{ currentTime }}
+          </p>
           <line-chart :options="options" :chart-data="datacollection"/>
         </div>
       </section>
-
+      <button @click="loadData()">Update Chart</button>
     </div>
+  </main>
+
+    <footer id="sticky-footer" class="footer mt-auto py-3">
+        <div class="container text-center">
+          <small>
+            This is a sample project brought you by <a href="https://balena.io" target="_blank">balena</a> to demonstrate a multi container application using python for data gathering, <a href="https://www.mongodb.com/" target="_blank">mongoDB</a> for storing the data and expressJS with VueJS to display information. This project was created to demonstrate the capabilities of a 64 bit balena container running on a <b>Raspberry Pi 4</b>. Check out the announcement here: link.
+          </small>
+        </div>
+      </footer>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.min.js"></script>
     <script src="https://unpkg.com/vue-chartjs@2.8.7/dist/vue-chartjs.full.min.js"></script>
