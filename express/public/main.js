@@ -36,31 +36,41 @@ var vm = new Vue({
           ]
         }
       },
-      datacollection: {
-        labels: [
-          "2019-09-05T09:01:54.607Z",
-          "2019-09-05T09:03:54.607Z",
-          "2019-09-05T09:04:54.607Z",
-          "2019-09-05T09:05:54.607Z",
-          "2019-09-05T09:06:54.607Z",
-          "2019-09-05T09:11:54.607Z",
-          "2019-09-05T09:12:54.607Z"
-        ],
-        datasets: [
-          {
-            label: "Temperature",
-            backgroundColor: "#f87979",
-            data: [30, 45, 10, 40, 39, 80, 40],
-            fill: false
-          }
-        ]
-      }
+      datacollection: {}
     };
   },
-  mounted() {
-    this.fillData();
+  created() {
+    this.loadData();
   },
   methods: {
-    fillData: function() {}
+    loadData: function() {
+      fetch("/data")
+        .then(res => {
+          return res.json();
+        })
+        .then(data => {
+          // console.log(data);
+
+          let labels = [];
+          let tempData = [];
+
+          data.map(point => {
+            labels.push(point.time);
+            tempData.push(point.weather.main.temp);
+          });
+
+          this.datacollection = {
+            labels: labels,
+            datasets: [
+              {
+                label: "Temperature",
+                backgroundColor: "#f87979",
+                data: tempData,
+                fill: false
+              }
+            ]
+          };
+        });
+    }
   }
 });
