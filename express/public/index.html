@@ -13,14 +13,16 @@
       <section>
         <div id="app">
           <p> 
+            <span v-show="refreshing" class="float-right text-light bg-secondary px-2 py-1">Refreshing ...</span>
               <b>City:</b> {{ cityName }} <br>
               <b>Lat:</b> {{ cityLat }} <b>Long:</b> {{ cityLong }} <br>
               <b>Time:</b>  {{ currentTime }}
           </p>
+
           <line-chart :options="options" :chart-data="datacollection"/>
         </div>
       </section>
-      <button @click="loadData()">Update Chart</button>
+      <!-- <button @click="loadData">Update Chart</button> -->
     </div>
   </main>
 

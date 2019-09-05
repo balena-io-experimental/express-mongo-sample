@@ -11,6 +11,7 @@ var vm = new Vue({
   el: "#app",
   data: function() {
     return {
+      refreshing: false,
       options: {
         responsive: true,
         maintainAspectRatio: false,
@@ -34,68 +35,72 @@ var vm = new Vue({
               display: true
             }
           ],
-          yAxes: [{
-            id: 'Temperature',
-            labelString: 'Temperature',
-            type: 'linear',
-            position: 'left',
-            ticks: {
-              max: 50,
-              min: 0,
-              callback: function(value, index, values) {
-                return value + 'C';
+          yAxes: [
+            {
+              id: "Temperature",
+              labelString: "Temperature",
+              type: "linear",
+              position: "left",
+              ticks: {
+                max: 50,
+                min: 0,
+                callback: function(value, index, values) {
+                  return value + "°C";
+                }
+              }
+            },
+            {
+              id: "Humidity",
+              labelString: "Humidity",
+              type: "linear",
+              position: "right",
+              ticks: {
+                max: 100,
+                min: 0,
+                callback: function(value, index, values) {
+                  return value + "%";
+                }
               }
             }
-          }, {
-            id: 'Humidity',
-            labelString: 'Humidity',
-            type: 'linear',
-            position: 'right',
-            ticks: {
-              max: 100,
-              min: 0,
-              callback: function(value, index, values) {
-                return value + '%';
-              }
-            }
-          }]
+          ]
         }
       },
       datacollection: {},
       cityName: "",
       cityLat: "",
       cityLong: "",
-      currentTime: ""
+      currentTime: null
     };
   },
   created() {
     this.loadData();
   },
+  mounted() {
+    this.refresh();
+  },
   methods: {
-    loadData () {
+    loadData() {
       console.log("Updating content");
       fetch("/data")
         .then(res => {
           return res.json();
         })
         .then(data => {
-          // console.log(data);
-
           let labels = [];
           let tempData = [];
           let humidData = [];
 
           data.map(point => {
             labels.push(point.time);
-            tempData.push((point.weather.main.temp-273.15).toFixed(2)); // Converting temperatue from Kelvin to Celcius
-            humidData.push((point.weather.main.humidity).toFixed(2)); 
-
-            this.cityName = point.weather.name;
-            this.cityLat = point.weather.coord.lat;
-            this.cityLong = point.weather.coord.lon;
-            this.currentTime = point.time;
-
+            tempData.push((point.weather.main.temp - 273.15).toFixed(2)); // Converting temperature from Kelvin to Celsius
+            humidData.push(point.weather.main.humidity.toFixed(2));
           });
+
+          /* Get last data points */
+          this.cityName = data[data.length - 1].weather.name;
+          this.cityLat = data[data.length - 1].weather.coord.lat;
+          this.cityLong = data[data.length - 1].weather.coord.lon;
+          this.currentTime = data[data.length - 1].time;
 
           this.datacollection = {
             labels: labels,
@@ -113,22 +118,21 @@ var vm = new Vue({
                 backgroundColor: "#348ceb",
                 data: humidData,
                 fill: false
-              }//,
-              // {
-              //   label: "Pressure",
-              //   backgroundColor: "#4fc261",
-              //   data: pressData,
-              //   fill: false
-              // }
+              }
             ]
           };
         });
+    },
+    refresh() {
+      /* update data every 2 minutes */
+
+      setInterval(() => {
+        this.refreshing = true;
+        this.loadData();
+        setTimeout(() => {
+          this.refreshing = false;
+        }, 3000);
+      }, 60000);
     }
   }
 });
-
-
-
-/*
-{ "_id" : ObjectId("5d70cff2d4ad85c2ad9f147a"), "time" : ISODate("2019-09-05T09:05:54.607Z"), "weather" : { "coord" : { "lon" : -9.14, "lat" : 38.71 }, "weather" : [ { "id" : 800, "main" : "Clear", "description" : "clear sky", "icon" : "01d" } ], "base" : "stations", "main" : { "temp" : 294.52, "pressure" : 1016, "humidity" : 60, "temp_min" : 292.15, "temp_max" : 297.04 }, "visibility" : 10000, "wind" : { "speed" : 3.6, "deg" : 20 }, "clouds" : { "all" : 0 }, "dt" : 1567673969, "sys" : { "type" : 1, "id" : 6901, "message" : 0.0084, "country" : "PT", "sunrise" : 1567663740, "sunset" : 1567710132 }, "timezone" : 3600, "id" : 2267057, "name" : "Lisbon", "cod" : 200 } }
-*/
