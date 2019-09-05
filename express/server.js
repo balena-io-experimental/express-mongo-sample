@@ -22,12 +22,7 @@ app.use(bodyParser.json());
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-  db.collection("quotes")
-    .find()
-    .toArray((err, result) => {
-      if (err) return console.log(err);
-      res.render("index.ejs", { quotes: result });
-    });
+  res.sendFile("index.html");
 });
 
 app.post("/quotes", (req, res) => {
