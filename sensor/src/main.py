@@ -2,31 +2,25 @@ import time
 import random
 import json
 import os
+import sys
 from datetime import datetime
 from pymongo import MongoClient
 from pprint import pprint
 from urllib.request import urlopen
 
 # get CITY setting from dashboard
-try:
-    CITY = os.environ["CITY_CODE"]
-except KeyError:
-    print("using default city: lisbon,pt")
-    CITY = "lisbon,pt"
-
 # Get API key
-try:
-    API_KEY = os.environ["API_KEY"]
-except KeyError:
-    print("using balena's api key")
-    API_KEY = "6b13bbc2262eedc8baecf752c9940d9c"
-
 # Get refresh frequency
 try:
+    CITY = os.environ["CITY_CODE"]
+    API_KEY = os.environ["API_KEY"]
     FREQ = os.environ["FREQ"]
 except KeyError:
-    print("using default frequency: 1 min")
-    FREQ = 1
+    print("Please set environment variables")
+    sys.exit()
+    
+    
+  
 
 
 def readWeather(code, apikey):
