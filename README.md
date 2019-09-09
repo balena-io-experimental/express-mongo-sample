@@ -1,4 +1,4 @@
-![](https://github.com/balena-io-playground/express-mongo-sample/blob/master/assets/title.png?raw=true)
+![](https://github.com/balena-io-playground/express-mongo-sample/blob/master/assets/header.png?raw=true)
 
 # Express and MongoDB example project
 
@@ -16,6 +16,6 @@ The project is divided into three containers:
 * python 3 application that fetches the weather information from the [openweathermap](https://openweathermap.org) API and saves it to the database every minute. 
 * Node.js server, where we built the front-end using ExpressJS and VueJS . The application fetches the data from the mongo database and displays it in a chart, which is refreshed automatically every minute.
 
-![](https://github.com/balena-io-playground/express-mongo-sample/blob/master/assets/logo.png?raw=true)
+![](https://github.com/balena-io-playground/express-mongo-sample/blob/master/assets/body.png?raw=true)
 
 > Note, the express app is based on https://zellwk.com/blog/crud-express-mongodb/
