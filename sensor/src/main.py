@@ -41,7 +41,7 @@ def readWeather(code, apikey):
     return weather
 
 
-client = MongoClient('localhost', 27017)
+client = MongoClient('mongo', 27017)
 
 with client:
     db = client.sensorData
