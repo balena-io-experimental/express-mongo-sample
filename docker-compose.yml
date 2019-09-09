@@ -7,21 +7,17 @@ services:
   mongo:
     build: ./mongo
     restart: always
-    privileged: true
-    network_mode: "host"
     volumes:
       - 'mongo-data:/data/db'
-    ports:
-      - "27017:27017"
+    expose:
+      - "27017"
   express:
     depends_on:
       - mongo
     build: ./express
-    network_mode: "host"
     ports:
       - "80:80"
   sensor:
     depends_on:
       - mongo
     build: ./sensor
-    network_mode: "host"
