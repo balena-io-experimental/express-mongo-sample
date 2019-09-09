@@ -14,7 +14,7 @@ from urllib.request import urlopen
 try:
     CITY = os.environ["CITY_CODE"]
     API_KEY = os.environ["API_KEY"]
-    FREQ = os.environ["FREQ"]
+    FREQ = int(os.environ["FREQ"])
 except KeyError:
     print("Please set environment variables")
     sys.exit()
