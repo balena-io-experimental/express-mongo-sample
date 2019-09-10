@@ -1,31 +1,13 @@
 import time
-import random
 import json
 import os
 import sys
 from datetime import datetime
 from pymongo import MongoClient
-from pprint import pprint
 from urllib.request import urlopen
 
-# get CITY setting from dashboard
-# Get API key
-# Get refresh frequency
-try:
-    CITY = os.environ["CITY_CODE"]
-    API_KEY = os.environ["API_KEY"]
-    FREQ = int(os.environ["FREQ"])
-except KeyError:
-    print("Please set environment variables")
-    sys.exit()
-    
-    
-  
-
-
+# readWeather uses the api-key and city code to fetch the json data for the current weather information
 def readWeather(code, apikey):
-    # apikey="6b13bbc2262eedc8baecf752c9940d9c" # sign up here https://home.openweathermap.org/api_keys
-
     url = "https://api.openweathermap.org/data/2.5/weather?q="+code+"&appid="+apikey
 
     meteo = urlopen(url).read()
@@ -34,13 +16,32 @@ def readWeather(code, apikey):
 
     return weather
 
+# Fetch environment data
+try:
+    CITY = os.environ["CITY_CODE"]
+    API_KEY = os.environ["API_KEY"]
+except KeyError:
+    print("Please set environment variables")
+    sys.exit()
 
+# Set refresh frequency
+if os.environ.get("FREQ") is None:
+    FREQ = 1
+else:
+    FREQ = int(os.environ["FREQ"])
+    
 client = MongoClient('mongo', 27017)
+
+# Code start
+print("Starting")
+print("City: %s " % (CITY))
+print("Frequency: %d mins " % (FREQ))
 
 with client:
     db = client.sensorData
     col = db.data
 
+    # Read data and save to database
     while True:
         current_time = datetime.now()
         weather = readWeather(CITY, API_KEY)
