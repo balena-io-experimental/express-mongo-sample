@@ -5,7 +5,7 @@ volumes:
 
 services:
   mongo:
-    build: ./mongo
+    image: arm64v8/mongo
     restart: always
     volumes:
       - 'mongo-data:/data/db'
