@@ -35,7 +35,6 @@ client = MongoClient('mongo', 27017)
 # Code start
 print("Starting")
 print("City: %s " % (CITY))
-print("Api Key: %s " % (API_KEY))
 print("Frequency: %d mins " % (FREQ))
 
 with client:
