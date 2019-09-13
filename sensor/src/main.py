@@ -9,7 +9,7 @@ from urllib.request import urlopen
 
 # readWeather uses the api-key and city code to fetch the json data for the current weather information
 def read_weather(code, apikey):
-    url =  "https://api.darksky.net/forecast/"+apikey+"/"+code+"?exclude=daily,hourly,flags" #[latitude],[longitude]
+    url =  "https://api.darksky.net/forecast/"+apikey+"/"+code+"?exclude=daily,hourly,flags&units=si" #[latitude],[longitude]
 
     meteo = urlopen(url).read()
     meteo = meteo.decode('utf-8')

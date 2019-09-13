@@ -92,7 +92,7 @@ var vm = new Vue({
 
           data.map(point => {
             labels.push(point.time);
-            tempData.push(( (point.weather.currently.temperature - 32)*(5/9) ).toFixed(2)); // Converting temperature from Fahrenheit to Celsius
+            tempData.push(point.weather.currently.temperature.toFixed(2)); // Converting temperature from Fahrenheit to Celsius
             humidData.push(point.weather.currently.humidity.toFixed(2) * 100);
           });
 
