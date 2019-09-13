@@ -92,14 +92,14 @@ var vm = new Vue({
 
           data.map(point => {
             labels.push(point.time);
-            tempData.push((point.weather.main.temp - 273.15).toFixed(2)); // Converting temperature from Kelvin to Celsius
-            humidData.push(point.weather.main.humidity.toFixed(2));
+            tempData.push(( (point.weather.currently.temperature - 32)*(5/9) ).toFixed(2)); // Converting temperature from Fahrenheit to Celsius
+            humidData.push(point.weather.currently.humidity.toFixed(2) * 100);
           });
 
           /* Get last data points */
-          this.cityName = data[data.length - 1].weather.name;
-          this.cityLat = data[data.length - 1].weather.coord.lat;
-          this.cityLong = data[data.length - 1].weather.coord.lon;
+          this.cityName = data[data.length - 1].weather.timezone;
+          this.cityLat = data[data.length - 1].weather.latitude;
+          this.cityLong = data[data.length - 1].weather.longitude;
           this.currentTime = data[data.length - 1].time;
 
           this.datacollection = {
