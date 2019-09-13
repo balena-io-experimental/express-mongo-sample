@@ -6,9 +6,10 @@ from datetime import datetime
 from pymongo import MongoClient
 from urllib.request import urlopen
 
+
 # readWeather uses the api-key and city code to fetch the json data for the current weather information
-def readWeather(code, apikey):
-    url = "https://api.openweathermap.org/data/2.5/weather?q="+code+"&appid="+apikey
+def read_weather(code, apikey):
+    url =  "https://api.darksky.net/forecast/"+apikey+"/"+code+"?exclude=daily,hourly,flags&units=si" #[latitude],[longitude]
 
     meteo = urlopen(url).read()
     meteo = meteo.decode('utf-8')
@@ -26,7 +27,7 @@ except KeyError:
 
 # Set refresh frequency
 if os.environ.get("FREQ") is None:
-    FREQ = 1
+    FREQ = 5
 else:
     FREQ = int(os.environ["FREQ"])
     
@@ -43,8 +44,9 @@ with client:
 
     # Read data and save to database
     while True:
+
         current_time = datetime.now()
-        weather = readWeather(CITY, API_KEY)
+        weather = read_weather(CITY, API_KEY)
 
         read = {"time": current_time, "weather": weather}
         x = col.insert_one(read)

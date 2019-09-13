@@ -13,17 +13,18 @@ You will also need to [set up environment variables](https://www.balena.io/docs/
 
 | Name             | Value  
 | -----------------|------------------------------------                                   
-| CITY_CODE     | The code corresponding to your city, e.g `lisbon,pt` or `london,uk`                     
-| API_KEY | [api key](https://openweathermap.org/appid) retrieved after signing up at `openweathermap.org`|
+| CITY_CODE     | The code corresponding to the latitude and longitude of the desired city comma separated. Ex: `38.722252,-9.139337`.
+| API_KEY | [api key](https://darksky.net/dev) retrieved after signing up at `https://darksky.net`|
 | FREQ | Frequency(in minutes) with which to retrieve weather data |                                   
                     
 
+> To get the Lat & Long for your city, you can use [latlong.net](https://www.latlong.net/) and type the name of the desired city, such as Lisbon or London. On the `environment variable`, just combine both information comma separated such as  `38.722252,-9.139337`.
 
 ### About the project:
 
 The project is divided into three containers:
 * A mongoDB database instance with persistent storage, in which we will store all data. 
-* python 3 application that fetches the weather information from the [openweathermap](https://openweathermap.org) API and saves it to the database every minute. 
+* A Python 3 application that fetches the weather information from the [Dark Sky](https://darksky.net/dev) API and saves it to the database every minute. 
 * Node.js server, where we built the front-end using ExpressJS and VueJS . The application fetches the data from the mongo database and displays it in a chart, which is refreshed automatically every minute.
 
 ![](https://github.com/balena-io-playground/express-mongo-sample/blob/master/assets/body.png?raw=true)
