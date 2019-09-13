@@ -13,9 +13,9 @@ You will also need to [set up environment variables](https://www.balena.io/docs/
 
 | Name             | Value  
 | -----------------|------------------------------------                                   
-| CITY_CODE     | The code corresponding to the latitude and longitude of the desired city comma separated. Ex: `38.722252,-9.139337`.
+| CITY_LATLNG     | The code corresponding to the latitude and longitude of the desired city comma separated. Ex: `38.722252,-9.139337`.
 | API_KEY | [api key](https://darksky.net/dev) retrieved after signing up at `https://darksky.net`|
-| FREQ | Frequency(in minutes) with which to retrieve weather data |                                   
+| FREQ | Frequency(in minutes) with which to retrieve weather data. |                                   
                     
 
 > To get the Lat & Long for your city, you can use [latlong.net](https://www.latlong.net/) and type the name of the desired city, such as Lisbon or London. On the `environment variable`, just combine both information comma separated such as  `38.722252,-9.139337`.
