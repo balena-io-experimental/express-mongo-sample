@@ -4,7 +4,7 @@ FROM balenalib/%%BALENA_MACHINE_NAME%%-python:3.7-buster-run
 # Install packages
 RUN pip3 install --upgrade \
 	pymongo \
-	request
+	requests
 
 # Set our working directory
 WORKDIR /usr/src/app
